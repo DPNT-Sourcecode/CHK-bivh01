@@ -28,6 +28,9 @@ class TestCheckout:
             ("FFF", 20),
             ("FFFF", 30),
             ("ABCDCBAAFBCABFBAAFA", 515),
+            ("STXYZ", 45),
+            ("STXYZZZ", 87),
+            ("STXYZSTXYZ", 90),
         ]
     )
     def test_expected_output(self, skus, value):
@@ -46,3 +49,12 @@ class TestCheckout:
                            sku=t_sku)
 
         assert basket[f_sku] == expected
+
+
+    def test_handle_value_offers(self):
+        pass
+
+
+    def test_handle_bundle_offers(self):
+        pass
+
