@@ -58,19 +58,30 @@ def checkout(skus):
         if sku not in _SKU_PRICE:
             return -1
         # Kept this seperate as it needs to execture before second block
-        if sku in _FREE_ITEM_OFFERS:
-            offers = _VALUE_OFFERS[sku].offers
-            for vol in sorted(offers, reverse=True):
-                full_deals = basket[sku] // vol
+        _handle_free_items(basket, sku)
 
-
-        if sku in _VALUE_OFFERS:
-            offers = _VALUE_OFFERS[sku].offers
-            for vol in sorted(offers, reverse=True):
-                if full_deals > 0:
-                    basket_value += offers[vol] * full_deals
-                    basket[sku] -= vol * full_deals
+        basket_value = _handle_value_offers(basket, basket_value, sku)
 
         basket_value += _SKU_PRICE[sku] * basket[sku]
 
     return basket_value
+
+
+def _handle_value_offers(basket, basket_value, sku):
+    if sku in _VALUE_OFFERS:
+        offers = _VALUE_OFFERS[sku].offers
+        for vol in sorted(offers, reverse=True):
+            full_deals = basket[sku] // vol
+            if full_deals > 0:
+                basket_value += offers[vol] * full_deals
+                basket[sku] -= vol * full_deals
+    return basket_value
+
+
+def _handle_free_items(basket, sku):
+    if sku in _FREE_ITEM_OFFERS:
+        offers = _VALUE_OFFERS[sku].offers
+        for vol in sorted(offers, reverse=True):
+            full_deals = basket[sku] // vol
+            basket[offers[vol]] -= full_deals
+
