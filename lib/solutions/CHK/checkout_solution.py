@@ -94,7 +94,7 @@ def _handle_free_items(basket):
 
 def _calculate_basket_value(basket, basket_value):
     basket_value += _handle_bundle_offer(basket=basket,
-                                          basket_value=basket_value)
+                                         basket_value=basket_value)
 
     for sku in list(basket.keys()):
         if sku in _VALUE_OFFERS:
@@ -118,6 +118,8 @@ def _handle_bundle_offer(basket, basket_value):
             basket[sku] -= num_of_bundles
 
         basket_value += 45 * num_of_bundles
+
+    return basket_value
 
 
 
