@@ -76,10 +76,7 @@ def checkout(skus):
 
     _handle_free_items(basket=basket)
 
-    _handle_bundle_offers(basket=basket,
-                          basket_value=basket_value)
-
-    _handle_value_offers(basket=basket,
+    _calculate_basket_value(basket=basket,
                          basket_value=basket_value)
 
     return basket_value
@@ -95,17 +92,10 @@ def _handle_free_items(basket):
                     basket[offers[vol]] -= full_deals
 
 
-def _handle_bundle_offers(basket, basket_value):
-    if all(x in basket for x in _STXYZ_BUNDLE):
-        num_of_bundles = min([basket[x] for x in _STXYZ_BUNDLE])
+def _calculate_basket_value(basket, basket_value):
+    _handle_bundle_offers(basket=basket,
+                          basket_value=basket_value)
 
-        for sku in _STXYZ_BUNDLE:
-            basket[sku] -= num_of_bundles
-
-        basket_value += 45 * num_of_bundles
-
-
-def _handle_value_offers(basket, basket_value):
     for sku in list(basket.keys()):
         if sku in _VALUE_OFFERS:
             offers = _VALUE_OFFERS[sku]
@@ -117,6 +107,15 @@ def _handle_value_offers(basket, basket_value):
 
         basket_value += _SKU_PRICE[sku] * basket[sku]
 
+
+def _handle_bundle_offers(basket, basket_value):
+    if all(x in basket for x in _STXYZ_BUNDLE):
+        num_of_bundles = min([basket[x] for x in _STXYZ_BUNDLE])
+
+        for sku in _STXYZ_BUNDLE:
+            basket[sku] -= num_of_bundles
+
+        basket_value += 45 * num_of_bundles
 
 
 
