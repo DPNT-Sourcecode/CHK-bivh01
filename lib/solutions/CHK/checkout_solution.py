@@ -6,7 +6,7 @@ _SKU_PRICE = {
     'B': 30,
     'C': 20,
     'D': 15,
-    'E': 40
+    'E': 40,
 }
 
 
@@ -70,5 +70,6 @@ def _handle_free_items(basket, sku):
         for vol in sorted(offers, reverse=True):
             full_deals = basket[sku] // vol
             basket[offers[vol]] -= full_deals
+
 
 
