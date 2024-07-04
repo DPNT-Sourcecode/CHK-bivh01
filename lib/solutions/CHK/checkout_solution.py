@@ -1,10 +1,23 @@
-from collections import defaultdict, Counter
+from collections import Counter
+from dataclasses import dataclass
 
 _SKU_PRICE_TABLE = {
     'A': 50,
     'B': 30,
     'C': 20,
     'D': 15
+}
+
+
+@dataclass
+class Offer:
+    volume: int
+    value: int
+
+
+_OFFERS_TABLE = {
+    'A': Offer(volume=3, value=130),
+    'B': Offer(volume=2, value=45)
 }
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -21,17 +34,21 @@ def checkout(skus):
 
     Returns
     -------
-    int
+    int, anything above -1 inclusive
     """
     basket = Counter(skus)
     basket_value = 0
 
-    if set(basket.keys()) == set(skus.split('')):
-        return -1
-
-
+    for sku in basket:
+        if sku not in _SKU_PRICE_TABLE:
+            return -1
 
         # TODO add condition for special offers
+        if sku in _OFFERS_TABLE:
+            pass
+        else:
+            basket_value += _SKU_PRICE_TABLE[sku] * basket[sku]
 
+    return basket_value
 
 

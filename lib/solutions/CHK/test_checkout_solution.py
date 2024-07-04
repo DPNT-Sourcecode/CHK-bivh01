@@ -11,8 +11,12 @@ class TestCheckout:
             ("C", 20),
             ("D", 15),
             ("-", -1),
+            ("AAA", 130),
+            ("BB", 45),
+            ("BBB", 75),
             ("ABCDCBAABCABBAAA", 0)
         ]
     )
     def test_expected_output(self, skus, value):
         assert value == checkout(skus)
+        
