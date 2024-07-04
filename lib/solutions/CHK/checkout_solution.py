@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, deque
 
 _STXYZ_BUNDLE = ('Z', 'S', 'T', 'Y', 'X')
 
@@ -112,9 +112,16 @@ def _calculate_basket_value(basket, basket_value):
 
 
 def _handle_bundle_offer(basket, basket_value, bundle):
-    num_of_bundle_items = sum([basket[x] for x in basket if x in bundle])
+    item_queue = []
+    for x in basket:
+        if x in bundle:
+            item_queue.extend([x] * basket[x])
+
+    num_of_bundle_items = len(item_queue)
     num_of_bundles = num_of_bundle_items // 3
-    if num_of_bundles > 0:
+
+
+    while num_of_bundles > 0:
 
 
     if all(x in basket for x in _STXYZ_BUNDLE):
