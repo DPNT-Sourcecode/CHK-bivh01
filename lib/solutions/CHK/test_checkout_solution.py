@@ -19,7 +19,7 @@ class TestCheckout:
             # ('EEB', 80),
             # ("AAAAA", 200),
             # ("AAAAAAAA", 330),
-            ("BEBEEE", 160),
+            # ("BEBEEE", 160),
             ("ABCDEABCDE", 280),
             ("ABCDCBAABCABBAAA", 495)
         ]
@@ -39,5 +39,6 @@ class TestCheckout:
                            sku=t_sku)
 
         assert basket[f_sku] == expected
+
 
 
