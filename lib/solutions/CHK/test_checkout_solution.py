@@ -14,7 +14,7 @@ class TestCheckout:
             ("AAA", 130),
             ("BB", 45),
             ("BBB", 75),
-            ("ABCDCBAABCABBAAA", 0)
+            ("ABCDCBAABCABBAAA", 505)
         ]
     )
     def test_expected_output(self, skus, value):

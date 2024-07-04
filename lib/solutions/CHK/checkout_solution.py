@@ -46,11 +46,11 @@ def checkout(skus):
         # TODO add condition for special offers
         if sku in _OFFERS_TABLE:
             remainder = basket[sku] % _OFFERS_TABLE[sku].volume
-            full_deals = basket[sku] // _OFFERS_TABLE[sku].volume￥
+            full_deals = basket[sku] // _OFFERS_TABLE[sku].volume
+
+            basket_value += (full_deals * _OFFERS_TABLE[sku].value +
+                             remainder * _SKU_PRICE_TABLE[sku])
         else:
             basket_value += _SKU_PRICE_TABLE[sku] * basket[sku]
 
     return basket_value
-
-
-
