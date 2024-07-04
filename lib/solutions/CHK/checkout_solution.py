@@ -122,9 +122,3 @@ def _handle_bundle_offer(basket, basket_value):
         basket_value += 45 * num_of_bundles
 
     return basket_value
-
-
-
-
-
-
