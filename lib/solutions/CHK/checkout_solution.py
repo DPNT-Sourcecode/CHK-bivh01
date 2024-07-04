@@ -1,4 +1,4 @@
-from collections import defaultdict
+from collections import defaultdict, Counter
 
 _SKU_PRICE_TABLE = {
     'A': 50,
@@ -23,7 +23,7 @@ def checkout(skus):
     -------
     int
     """
-    basket = defaultdict(int)
+    basket = Counter
     basket_value = 0
 
     for sku in skus:
@@ -33,4 +33,5 @@ def checkout(skus):
 
 
         # TODO add condition for special offers
+
 
