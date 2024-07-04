@@ -23,15 +23,15 @@ def checkout(skus):
     -------
     int
     """
-    basket = Counter
+    basket = Counter(skus)
     basket_value = 0
 
-    for sku in skus:
-        if sku not in _SKU_PRICE_TABLE:
-            return -1
+    if set(basket.keys()) == set(skus.split('')):
+        return -1
 
 
 
         # TODO add condition for special offers
+
 
 
