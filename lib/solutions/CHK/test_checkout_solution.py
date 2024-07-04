@@ -28,9 +28,9 @@ class TestCheckout:
             ("FFF", 20),
             ("FFFF", 30),
             ("ABCDCBAAFBCABFBAAFA", 515),
-            ("STXYZ", 45),
-            ("STXYZZZ", 87),
-            ("STXYZSTXYZ", 90),
+            ("STXYZ", 82),
+            ("STXYZZZ", 107),
+            ("STXYZSTXYZ", 152),
         ]
     )
     def test_expected_output(self, skus, value):
@@ -57,4 +57,5 @@ class TestCheckout:
 
     def test_handle_bundle_offers(self):
         pass
+
 
