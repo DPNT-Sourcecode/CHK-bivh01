@@ -7,6 +7,7 @@ _SKU_PRICE = {
     'C': 20,
     'D': 15,
     'E': 40,
+    'F': 10,
 }
 
 
@@ -17,6 +18,7 @@ _VALUE_OFFERS = {
 
 _FREE_ITEM_OFFERS = {
     'E': {2: 'B'},
+    'F': {2: 'F'}
 }
 
 # noinspection PyUnusedLocal
@@ -71,4 +73,5 @@ def _handle_free_items(basket, sku):
             if offers[vol] in basket:
                 full_deals = basket[sku] // vol
                 basket[offers[vol]] -= full_deals
+
 
