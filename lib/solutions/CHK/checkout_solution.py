@@ -30,4 +30,3 @@ def checkout(skus):
 
         # TODO add condition for special offers
 
-
