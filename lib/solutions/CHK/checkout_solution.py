@@ -1,6 +1,6 @@
 from collections import Counter
 
-_STXYZ_BUNDLE = ['S', 'T', 'X', 'Y', 'Z']
+_STXYZ_BUNDLE = ('Z', 'S', 'T', 'Y', 'X')
 
 _SKU_PRICE = {
     'A': 50,
@@ -94,7 +94,8 @@ def _handle_free_items(basket):
 
 def _calculate_basket_value(basket, basket_value):
     basket_value += _handle_bundle_offer(basket=basket,
-                                         basket_value=basket_value)
+                                         basket_value=basket_value,
+                                         bundle=_STXYZ_BUNDLE)
 
     for sku in list(basket.keys()):
         if sku in _VALUE_OFFERS:
@@ -110,7 +111,10 @@ def _calculate_basket_value(basket, basket_value):
     return basket_value
 
 
-def _handle_bundle_offer(basket, basket_value):
+def _handle_bundle_offer(basket, basket_value, bundle):
+    num_of_bundle_items = sum([basket[x] for x in basket if x in bundle])
+    num_of_bundles = num_of_bundle_items // 3
+    if num_of_bundles > 0:
 
 
     if all(x in basket for x in _STXYZ_BUNDLE):
