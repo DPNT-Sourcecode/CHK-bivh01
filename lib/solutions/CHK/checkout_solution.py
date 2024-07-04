@@ -11,25 +11,34 @@ _SKU_PRICE_TABLE = {
 
 
 @dataclass
-class Offer:
-    volume: int
+class _Offer:
+    offers: dict
 
 
 @dataclass
-class ValueOffer(Offer):
-    value: int
+class ValueOffer(_Offer):
+    def get_value(self, count):
+        for vol in self.offers:
+            if count // vol == 0:
+                continue
+            offer =
+
+
+        remainder = count % _OFFERS_TABLE[sku].volume
+        full_deals = basket[sku] // _OFFERS_TABLE[sku].volume
+
+        basket_value += (full_deals * _OFFERS_TABLE[sku].value +
+                         remainder * _SKU_PRICE_TABLE[sku])
 
 
 @dataclass
-class FreeItemOffer(Offer):
-    free_item: str
-
+class FreeItemOffer(_Offer):
+    pass
 
 _OFFERS_TABLE = {
-    'A': [ValueOffer(volume=3, value=130),
-          ValueOffer(volume=5, value=200)],
-    'B': [ValueOffer(volume=2, value=45)],
-    'E': FreeItemOffer(volume=2, free_item='B')
+    'A': ValueOffer(offers={3: 130, 5: 200}),
+    'B': ValueOffer(offers={2: 45}),
+    'E': FreeItemOffer(offers={2: 'B'})
 }
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -67,4 +76,3 @@ def checkout(skus):
     return basket_value
 
 def
-
