@@ -23,4 +23,3 @@ class TestCheckout:
     )
     def test_expected_output(self, skus, value):
         assert value == checkout(skus)
-
