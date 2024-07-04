@@ -18,8 +18,8 @@ class _Offer:
 @dataclass
 class ValueOffer(_Offer):
     def get_value(self, count):
-        for vol in self.offers:
-            if count // vol == 0:
+        for vol in sorted(self.offers):
+            if count // vol:
                 continue
             offer =
 
