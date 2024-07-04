@@ -17,8 +17,10 @@ class TestCheckout:
             ('E', 40),
             ('EEB', 80),
             ("AAAAA", 200),
+            ("AAAAAAAA", 330),
             ("ABCDCBAABCABBAAA", 495)
         ]
     )
     def test_expected_output(self, skus, value):
         assert value == checkout(skus)
+

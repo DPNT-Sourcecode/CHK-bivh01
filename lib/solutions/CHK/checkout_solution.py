@@ -1,4 +1,4 @@
-from collections import Counter
+from collections import Counter, OrderedDict
 from dataclasses import dataclass
 
 _SKU_PRICE_TABLE = {
@@ -17,29 +17,40 @@ class _Offer:
 
 @dataclass
 class ValueOffer(_Offer):
-    def get_value(self, count):
-        for vol in sorted(self.offers):
-            if count // vol:
-                continue
-            offer =
+    def get_offer(self, count):
+        """
+        Returns the best value deal with the given count
+
+        Params
+        ------
+        count: int
+
+        Returns
+        -------
+        int
+        """
+        for vol in sorted(self.offers, reverse=True):
+            if count > vol:
+                return
+        return 0
 
 
-        remainder = count % _OFFERS_TABLE[sku].volume
-        full_deals = basket[sku] // _OFFERS_TABLE[sku].volume
-
-        basket_value += (full_deals * _OFFERS_TABLE[sku].value +
-                         remainder * _SKU_PRICE_TABLE[sku])
 
 
 @dataclass
-class FreeItemOffer(_Offer):
-    pass
+class FreeItemOffer(ValueOffer):
+        pass
 
 _OFFERS_TABLE = {
-    'A': ValueOffer(offers={3: 130, 5: 200}),
-    'B': ValueOffer(offers={2: 45}),
-    'E': FreeItemOffer(offers={2: 'B'})
+    'A': OrderedDict({5: 200, 3: 130}),
+    'B': OrderedDict({2: 45}),
+    'E': OrderedDict({2: 'B'})
 }
+# _OFFERS_TABLE = {
+#     'A': ValueOffer(offers={3: 130, 5: 200}),
+#     'B': ValueOffer(offers={2: 45}),
+#     'E': FreeItemOffer(offers={2: 'B'})
+# }
 # noinspection PyUnusedLocal
 # skus = unicode string
 
@@ -65,14 +76,21 @@ def checkout(skus):
             return -1
 
         if sku in _OFFERS_TABLE:
-            remainder = basket[sku] % _OFFERS_TABLE[sku].volume
-            full_deals = basket[sku] // _OFFERS_TABLE[sku].volume
+            for
 
-            basket_value += (full_deals * _OFFERS_TABLE[sku].value +
-                             remainder * _SKU_PRICE_TABLE[sku])
+
+
+            # offer = _OFFERS_TABLE[sku].get_offer(basket[sku])
+
+            # remainder = basket[sku] % offer.volume
+            # full_deals = basket[sku] // _OFFERS_TABLE[sku].volume
+
+            # basket_value += (full_deals * _OFFERS_TABLE[sku].value +
+            #                  remainder * _SKU_PRICE_TABLE[sku])
         else:
             basket_value += _SKU_PRICE_TABLE[sku] * basket[sku]
 
     return basket_value
 
 def
+
