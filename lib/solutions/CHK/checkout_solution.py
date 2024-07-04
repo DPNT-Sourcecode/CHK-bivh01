@@ -113,8 +113,8 @@ def _calculate_basket_value(basket, basket_value):
 
 def _handle_bundle_offer(basket, basket_value, bundle):
     item_queue = []
-    for x in basket:
-        if x in bundle:
+    for x in bundle:
+        if x in basket:
             item_queue.extend([x] * basket[x])
 
     num_of_bundle_items = len(item_queue)
@@ -128,4 +128,5 @@ def _handle_bundle_offer(basket, basket_value, bundle):
         num_of_bundles -= 1
 
     return basket_value
+
 
