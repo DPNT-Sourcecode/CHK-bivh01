@@ -68,8 +68,10 @@ def _handle_free_items(basket, sku):
     if sku in _FREE_ITEM_OFFERS:
         offers = _FREE_ITEM_OFFERS[sku]
         for vol in sorted(offers, reverse=True):
-            full_deals = basket[sku] // vol
-            basket[offers[vol]] -= full_deals
+            if offers[vol] in basket:
+                full_deals = basket[sku] // vol
+                basket[offers[vol]] -= full_deals
+
 
 
 
