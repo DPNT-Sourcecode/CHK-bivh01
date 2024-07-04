@@ -82,7 +82,6 @@ def checkout(skus):
     _handle_value_offers(basket=basket,
                          basket_value=basket_value)
 
-    breakpoint()
     return basket_value
 
 
@@ -117,6 +116,7 @@ def _handle_value_offers(basket, basket_value):
                     basket[sku] -= vol * full_deals
 
         basket_value += _SKU_PRICE[sku] * basket[sku]
+
 
 
 
