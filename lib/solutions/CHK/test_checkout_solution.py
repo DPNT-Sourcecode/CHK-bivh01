@@ -37,16 +37,15 @@ class TestCheckout:
         assert value == checkout(skus)
 
     @pytest.mark.parametrize(
-        "basket, t_sku, f_sku, expected",
+        "basket, f_sku, expected",
         [
-            ({'E': 4, 'B': 2}, 'E', 'B', 0),
-            ({'E': 2, 'B': 2}, 'E', 'B', 1),
-            ({'F': 3}, 'F', 'F', 2),
+            ({'E': 4, 'B': 2}, 'B', 0),
+            ({'E': 2, 'B': 2}, 'B', 1),
+            ({'F': 3}, 'F', 2),
         ]
     )
-    def test_handle_free_items(self, basket, t_sku, f_sku, expected):
-        _handle_free_items(basket=basket,
-                           sku=t_sku)
+    def test_handle_free_items(self, basket, f_sku, expected):
+        _handle_free_items(basket=basket)
 
         assert basket[f_sku] == expected
 
@@ -57,5 +56,3 @@ class TestCheckout:
 
     def test_handle_bundle_offers(self):
         pass
-
-

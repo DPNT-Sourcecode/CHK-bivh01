@@ -118,7 +118,3 @@ def _handle_value_offers(basket, basket_value):
         basket_value += _SKU_PRICE[sku] * basket[sku]
 
 
-
-
-
-
