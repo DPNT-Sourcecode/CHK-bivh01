@@ -111,6 +111,8 @@ def _calculate_basket_value(basket, basket_value):
 
 
 def _handle_bundle_offer(basket, basket_value):
+
+
     if all(x in basket for x in _STXYZ_BUNDLE):
         num_of_bundles = min([basket[x] for x in _STXYZ_BUNDLE])
 
@@ -120,6 +122,7 @@ def _handle_bundle_offer(basket, basket_value):
         basket_value += 45 * num_of_bundles
 
     return basket_value
+
 
 
 
