@@ -45,6 +45,7 @@ def checkout(skus):
         # Kept this separate as it needs to execute before second block
         _handle_free_items(basket, sku)
 
+    for sku in list(basket.keys()):
         basket_value = _handle_value_offers(basket, basket_value, sku)
 
         basket_value += _SKU_PRICE[sku] * basket[sku]
@@ -69,4 +70,5 @@ def _handle_free_items(basket, sku):
         for vol in sorted(offers, reverse=True):
             full_deals = basket[sku] // vol
             basket[offers[vol]] -= full_deals
+
 
