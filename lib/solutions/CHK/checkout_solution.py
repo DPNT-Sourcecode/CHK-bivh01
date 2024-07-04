@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 _SKU_PRICE_TABLE = {
     'A': 50,
     'B': 30,
@@ -15,18 +17,20 @@ def checkout(skus):
 
     Params
     ------
-    skus: string
+    skus: string, eg (ABCDCBAABCABBAAA)
 
     Returns
     -------
     int
     """
-    # Need to know what skus looks like
-
+    basket = defaultdict(int)
+    basket_value = 0
 
     for sku in skus:
         if sku not in _SKU_PRICE_TABLE:
             return -1
+
+
 
         # TODO add condition for special offers
 
