@@ -149,15 +149,15 @@ def _calculate_basket_value(basket, basket_value):
 
 def _handle_bundle_offer(basket, basket_value, bundle):
     """
-    Handles bundle offers, in this case only bundles that require 3 of the
-    given items work.
+    Handles bundle offers.
 
     Params
     ------
     basket: dict, Keys are SKUs, these are paired to the total count for this
         sku
     basket_value: int
-    bundle: tuple, Describes the items included in a given bundle
+    bundle: Bundle object, contains the required volume for the offer to work
+        and the relevant items.
 
     Returns
     -------
@@ -179,4 +179,5 @@ def _handle_bundle_offer(basket, basket_value, bundle):
         num_of_bundles -= 1
 
     return basket_value
+
 
