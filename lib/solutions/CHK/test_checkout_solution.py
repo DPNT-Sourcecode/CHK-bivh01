@@ -24,9 +24,9 @@ class TestCheckout:
             ("ABCDEABCDE", 280),
             ("ABCDCBAABCABBAAA", 495),
             ("F", 10),
-            ("FF", 10),
+            ("FF", 20),
             ("FFF", 20),
-            ("FFFF", 20),
+            ("FFFF", 30),
             ("ABCDCBAAFBCABFBAAFA", 515),
         ]
     )
@@ -46,5 +46,6 @@ class TestCheckout:
                            sku=t_sku)
 
         assert basket[f_sku] == expected
+
 
 
