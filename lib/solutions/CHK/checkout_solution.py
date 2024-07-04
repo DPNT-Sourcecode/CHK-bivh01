@@ -1,6 +1,16 @@
-from collections import Counter, deque
+from collections import Counter
+from dataclasses import dataclass
 
-_STXYZ_BUNDLE = ('Z', 'S', 'T', 'Y', 'X')
+
+@dataclass
+class Bundle:
+    items: tuple
+    required_vol: int
+
+
+_STXYZ_BUNDLE = Bundle(
+    items=('Z', 'S', 'T', 'Y', 'X'),
+    required_vol=3)
 
 _SKU_PRICE = {
     'A': 50,
@@ -61,7 +71,7 @@ def checkout(skus):
 
     Params
     ------
-    skus: string, eg unicode (ABCDCBAABCABBAAA)
+    skus: string, e.g. unicode (ABCDCBAABCABBAAA)
 
     Returns
     -------
@@ -83,6 +93,18 @@ def checkout(skus):
 
 
 def _handle_free_items(basket):
+    """
+    This helper function handles any "free item" offers.
+
+    Items are removed from the basket directly.
+    Examples:
+        If 2 Es are found, one B is removed.
+        If 3 Fs are found then an F is removed.
+
+    Params
+    ------
+    basket: dict
+    """
     for sku in list(basket.keys()):
         if sku in _FREE_ITEM_OFFERS:
             offers = _FREE_ITEM_OFFERS[sku]
@@ -93,6 +115,20 @@ def _handle_free_items(basket):
 
 
 def _calculate_basket_value(basket, basket_value):
+    """
+    Returns the total value of the basket including all deals expect for
+    free items.
+
+    Params
+    ------
+    basket: dict, Keys are SKUs, these are paired to the total count for this
+        sku
+    basket_value: int
+
+    Returns
+    -------
+    basket_value: int
+    """
     basket_value += _handle_bundle_offer(basket=basket,
                                          basket_value=basket_value,
                                          bundle=_STXYZ_BUNDLE)
@@ -112,19 +148,35 @@ def _calculate_basket_value(basket, basket_value):
 
 
 def _handle_bundle_offer(basket, basket_value, bundle):
+    """
+    Handles bundle offers, in this case only bundles that require 3 of the
+    given items work.
+
+    Params
+    ------
+    basket: dict, Keys are SKUs, these are paired to the total count for this
+        sku
+    basket_value: int
+    bundle: tuple, Describes the items included in a given bundle
+
+    Returns
+    -------
+    basket_value: int
+    """
     item_queue = []
-    for x in bundle:
+    for x in bundle.items:
         if x in basket:
             item_queue.extend([x] * basket[x])
 
     num_of_bundle_items = len(item_queue)
-    num_of_bundles = num_of_bundle_items // 3
+    num_of_bundles = num_of_bundle_items // bundle.required_vol
 
     while num_of_bundles > 0:
-        for i in range(3):
+        for i in range(bundle.required_vol):
             sku = item_queue.pop(0)
             basket[sku] -= 1
         basket_value += 45
         num_of_bundles -= 1
 
     return basket_value
+
