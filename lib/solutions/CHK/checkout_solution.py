@@ -1,4 +1,4 @@
-from collections import Counter, OrderedDict
+from collections import Counter
 from dataclasses import dataclass
 
 _SKU_PRICE = {
@@ -10,28 +10,13 @@ _SKU_PRICE = {
 }
 
 
-@dataclass
-class _Offer:
-    offers: dict
-
-
-@dataclass
-class ValueOffer(_Offer):
-    pass
-
-
-@dataclass
-class FreeItemOffer(ValueOffer):
-    pass
-
-
 _VALUE_OFFERS = {
-    'A': ValueOffer(offers={3: 130, 5: 200}),
-    'B': ValueOffer(offers={2: 45}),
+    'A': {3: 130, 5: 200},
+    'B': {2: 45},
 }
 
 _FREE_ITEM_OFFERS = {
-    'E': FreeItemOffer(offers={2: 'B'}),
+    'E': {2: 'B'},
 }
 
 # noinspection PyUnusedLocal
@@ -45,7 +30,7 @@ def checkout(skus):
 
     Params
     ------
-    skus: string, eg (ABCDCBAABCABBAAA)
+    skus: string, eg unicode (ABCDCBAABCABBAAA)
 
     Returns
     -------
@@ -54,10 +39,10 @@ def checkout(skus):
     basket = Counter(skus)
     basket_value = 0
 
-    for sku in basket:
+    for sku in list(basket.keys()):
         if sku not in _SKU_PRICE:
             return -1
-        # Kept this seperate as it needs to execture before second block
+        # Kept this separate as it needs to execute before second block
         _handle_free_items(basket, sku)
 
         basket_value = _handle_value_offers(basket, basket_value, sku)
@@ -69,7 +54,7 @@ def checkout(skus):
 
 def _handle_value_offers(basket, basket_value, sku):
     if sku in _VALUE_OFFERS:
-        offers = _VALUE_OFFERS[sku].offers
+        offers = _VALUE_OFFERS[sku]
         for vol in sorted(offers, reverse=True):
             full_deals = basket[sku] // vol
             if full_deals > 0:
@@ -80,9 +65,10 @@ def _handle_value_offers(basket, basket_value, sku):
 
 def _handle_free_items(basket, sku):
     if sku in _FREE_ITEM_OFFERS:
-        offers = _FREE_ITEM_OFFERS[sku].offers
+        offers = _FREE_ITEM_OFFERS[sku]
         for vol in sorted(offers, reverse=True):
             full_deals = basket[sku] // vol
             basket[offers[vol]] -= full_deals
+
 
 
