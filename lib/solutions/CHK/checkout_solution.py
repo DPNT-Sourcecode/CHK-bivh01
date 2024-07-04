@@ -101,6 +101,3 @@ def _handle_free_items(basket, sku):
                 full_deals = basket[sku] // vol
                 basket[offers[vol]] -= full_deals
 
-
-
-
