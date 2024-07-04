@@ -40,8 +40,3 @@ class TestCheckout:
                            sku=t_sku)
 
         assert basket[f_sku] == expected
-
-
-
-
-
