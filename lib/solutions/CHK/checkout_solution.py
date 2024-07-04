@@ -128,5 +128,3 @@ def _handle_bundle_offer(basket, basket_value, bundle):
         num_of_bundles -= 1
 
     return basket_value
-
-

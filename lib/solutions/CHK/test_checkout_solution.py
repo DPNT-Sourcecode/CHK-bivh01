@@ -77,4 +77,3 @@ class TestCheckout:
         assert expected == _handle_bundle_offer(basket=basket,
                                                 basket_value=0,
                                                 bundle=bundle)
-
