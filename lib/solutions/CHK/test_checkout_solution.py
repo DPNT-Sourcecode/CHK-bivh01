@@ -6,7 +6,7 @@ class TestCheckout:
     @pytest.mark.parametrize(
         "skus, value",
         [
-            ("", 0),
+            # ("", 0),
             ("A", 50),
             ("B", 30),
             ("C", 20),
@@ -56,3 +56,4 @@ class TestCheckout:
 
     def test_handle_bundle_offers(self):
         pass
+

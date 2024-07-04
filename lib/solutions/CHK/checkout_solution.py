@@ -31,7 +31,6 @@ _SKU_PRICE = {
     'Z': 21,
 }
 
-
 _VALUE_OFFERS = {
     'A': {3: 130, 5: 200},
     'B': {2: 45},
@@ -49,6 +48,7 @@ _FREE_ITEM_OFFERS = {
     'R': {3: 'Q'},
     'U': {4: 'U'}
 }
+
 
 # noinspection PyUnusedLocal
 # skus = unicode string
@@ -76,8 +76,8 @@ def checkout(skus):
 
     _handle_free_items(basket=basket)
 
-    _calculate_basket_value(basket=basket,
-                         basket_value=basket_value)
+    basket_value += _calculate_basket_value(basket=basket,
+                                            basket_value=basket_value)
 
     return basket_value
 
@@ -93,8 +93,8 @@ def _handle_free_items(basket):
 
 
 def _calculate_basket_value(basket, basket_value):
-    _handle_bundle_offers(basket=basket,
-                          basket_value=basket_value)
+    basket_value += _handle_bundle_offers(basket=basket,
+                                          basket_value=basket_value)
 
     for sku in list(basket.keys()):
         if sku in _VALUE_OFFERS:
@@ -107,6 +107,8 @@ def _calculate_basket_value(basket, basket_value):
 
         basket_value += _SKU_PRICE[sku] * basket[sku]
 
+    return basket_value
+
 
 def _handle_bundle_offers(basket, basket_value):
     if all(x in basket for x in _STXYZ_BUNDLE):
@@ -116,6 +118,7 @@ def _handle_bundle_offers(basket, basket_value):
             basket[sku] -= num_of_bundles
 
         basket_value += 45 * num_of_bundles
+
 
 
 
