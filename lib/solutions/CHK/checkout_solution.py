@@ -90,7 +90,7 @@ def _handle_free_items(basket):
 
 
 def _handle_bundle_offer(basket, basket_value):
-    if 'S' in basket and 'T' in basket and 'X' in basket and 'Y' in basket
+    if all(x in basket )
 
 def _handle_value_offers(basket, basket_value):
     for sku in list(basket.keys()):
@@ -103,6 +103,7 @@ def _handle_value_offers(basket, basket_value):
                     basket[sku] -= vol * full_deals
 
         basket_value += _SKU_PRICE[sku] * basket[sku]
+
 
 
 
