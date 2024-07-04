@@ -1,5 +1,5 @@
 import pytest
-from checkout_solution import checkout
+from lib.solutions.CHK.checkout_solution import checkout
 
 class TestCheckout:
     @pytest.mark.parametrize(
@@ -19,4 +19,3 @@ class TestCheckout:
     )
     def test_expected_output(self, skus, value):
         assert value == checkout(skus)
-        
