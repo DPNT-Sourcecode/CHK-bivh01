@@ -120,16 +120,12 @@ def _handle_bundle_offer(basket, basket_value, bundle):
     num_of_bundle_items = len(item_queue)
     num_of_bundles = num_of_bundle_items // 3
 
-
     while num_of_bundles > 0:
-
-
-    if all(x in basket for x in _STXYZ_BUNDLE):
-        num_of_bundles = min([basket[x] for x in _STXYZ_BUNDLE])
-
-        for sku in _STXYZ_BUNDLE:
-            basket[sku] -= num_of_bundles
-
-        basket_value += 45 * num_of_bundles
+        for i in range(3):
+            sku = item_queue.pop(0)
+            basket[sku] -= 1
+        basket_value += 45
+        num_of_bundles -= 1
 
     return basket_value
+
